@@ -29,10 +29,10 @@ function App() {
       </section>
 
       {/* Footer Credit */}
-      {/* <footer className="text-center text-gray-400 text-sm py-4">
+      <footer className="text-center text-gray-400 text-sm py-4">Made with 💕 & ☕ <br />
         © {new Date().getFullYear()} Portfolio built by 
         <span className="text-purple-400"> Avinash</span>.
-      </footer> */}
+      </footer>
     </div>
   );
 }
