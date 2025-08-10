@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { AcademicCapIcon, CodeBracketIcon } from "@heroicons/react/24/solid";
 
 const workExperiences = [
   {
     company: "Brainware University",
+    shortName: "Brainware",
     role: "Assistant Professor",
     period: "01 Aug 2023 – present",
     description: "Teaching for BCA & MCA students at Brainware University.",
@@ -12,6 +13,7 @@ const workExperiences = [
   },
   {
     company: "Mangalore University",
+    shortName: "Mangalore",
     role: "Guest Faculty",
     period: "15 Jan 2021 – 26 July 2023",
     description:
@@ -20,6 +22,7 @@ const workExperiences = [
   },
   {
     company: "7edge Pvt Ltd",
+    shortName: "7edge",
     role: "Software Engineer",
     period: "02 Nov 2020 – 04 Jan 2021",
     description: "Worked as a frontend developer.",
@@ -31,12 +34,22 @@ const ExperienceTimeline = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   const controls = useAnimation();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     if (inView) {
       controls.start({ height: "100%" });
     }
   }, [inView, controls]);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 400);
+    };
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   return (
     <section
@@ -49,17 +62,19 @@ const ExperienceTimeline = () => {
         </h2>
 
         {/* Small screen horizontal mini timeline with icons */}
-        <div className="flex justify-center space-x-8 mb-12 md:hidden overflow-x-auto px-4">
-          {workExperiences.map(({ company, icon }, idx) => (
+        <div
+          className="flex justify-center space-x-8 mb-12 md:hidden overflow-x-auto overflow-y-hidden px-4 hide-scrollbar"
+        >
+          {workExperiences.map(({ company, shortName, icon }, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center space-y-1 min-w-[80px]"
+              className="flex flex-col items-center space-y-1 min-w-[90px] text-center"
             >
-              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-lg cursor-pointer shrink-0">
                 {icon}
               </div>
-              <p className="text-xs font-semibold text-gray-800 dark:text-gray-300 text-center truncate">
-                {company}
+              <p className="text-xs font-semibold text-gray-800 dark:text-gray-300 leading-tight break-words whitespace-normal">
+                {isSmallScreen ? shortName : company}
               </p>
             </div>
           ))}
@@ -67,7 +82,7 @@ const ExperienceTimeline = () => {
 
         {/* Container with relative positioning for timeline line and items */}
         <div className="relative max-w-4xl mx-auto w-full flex flex-col space-y-16 md:grid md:grid-cols-2 md:gap-12">
-          {/* Vertical timeline line, absolute centered */}
+          {/* Vertical timeline line */}
           <motion.div
             ref={ref}
             initial={{ height: 0 }}
@@ -83,25 +98,25 @@ const ExperienceTimeline = () => {
             ({ company, role, period, description, icon }, idx) => (
               <motion.div
                 key={idx}
-                className={`relative
-                  ${idx % 2 === 0 ? "md:justify-self-end md:text-left" : "md:justify-self-start md:text-left"}`}
+                className={`relative ${
+                  idx % 2 === 0
+                    ? "md:justify-self-end md:text-left"
+                    : "md:justify-self-start md:text-left"
+                }`}
                 initial={{ opacity: 0, x: idx % 2 === 0 ? -40 : 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.3 }}
               >
-                {/* Glassmorphic card with icon inside */}
                 <div
                   className="bg-white/30 dark:bg-gray-800/40 backdrop-blur-md
                     border border-white/30 dark:border-gray-700/50
                     p-6 rounded-xl shadow-lg text-gray-900 dark:text-gray-100
                     cursor-pointer hover:shadow-2xl transition-shadow relative"
                 >
-                  {/* Icon container top-left */}
                   <div className="absolute top-4 left-4 w-12 h-12 bg-blue-600 dark:bg-blue-400 rounded-full flex items-center justify-center shadow-lg">
                     {icon}
                   </div>
-
                   <div className="ml-16">
                     <h3 className="text-2xl font-semibold text-blue-600">
                       {company}
@@ -120,6 +135,17 @@ const ExperienceTimeline = () => {
           )}
         </div>
       </div>
+
+      {/* Hide scrollbar style */}
+      <style jsx>{`
+        .hide-scrollbar {
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE 10+ */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* Chrome/Safari/Webkit */
+        }
+      `}</style>
     </section>
   );
 };
