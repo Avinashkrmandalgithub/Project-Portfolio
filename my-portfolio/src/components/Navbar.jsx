@@ -4,7 +4,7 @@ import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/sol
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === 'dark');
   const [menuOpen, setMenuOpen] = useState(false);
-  const navLinks = ['Home','About', 'Experience', 'Education', 'Skills', 'Publications', 'Contact'];
+  const navLinks = ['Home','About', 'Experience', 'Education', 'Skills & Work', 'Contact'];
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
