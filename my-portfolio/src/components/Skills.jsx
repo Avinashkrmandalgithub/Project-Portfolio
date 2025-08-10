@@ -108,7 +108,7 @@ const SkillCard = ({ category, details, icons, color }) => {
             return IconComponent ? (
               <IconComponent
                 key={iconName}
-                className="w-8 h-8 rounded-full bg-white p-1 shadow-md"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white p-1 shadow-md"
               />
             ) : null;
           })}
@@ -117,29 +117,31 @@ const SkillCard = ({ category, details, icons, color }) => {
     }
     const IconComponent = IconLibrary[icons[0]];
     return IconComponent ? (
-      <IconComponent className="w-10 h-10 text-white" />
+      <IconComponent className="w-9 h-9 sm:w-10 sm:h-10 text-white" />
     ) : null;
   };
 
   return (
     <div
-      className={`group ${color} p-6 rounded-3xl shadow-lg cursor-pointer
+      className={`group ${color} p-4 sm:p-6 rounded-3xl shadow-lg cursor-pointer
         transition-transform transform hover:scale-105 hover:shadow-2xl
-        flex items-start space-x-6
+        flex items-start space-x-4 sm:space-x-6
       `}
       tabIndex={0}
       aria-label={`${category} skill card`}
     >
       <div
-        className="flex-shrink-0 rounded-full w-16 h-16 flex items-center justify-center
+        className="flex-shrink-0 rounded-full w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center
           bg-white bg-opacity-20 backdrop-blur-sm
           shadow-lg group-hover:bg-opacity-40 transition-all"
       >
         {renderIcons()}
       </div>
       <div>
-        <h3 className="text-2xl font-semibold text-white">{category}</h3>
-        <p className="mt-1 text-white/90">{details}</p>
+        <h3 className="text-xl sm:text-2xl font-semibold text-white">
+          {category}
+        </h3>
+        <p className="mt-1 text-sm sm:text-base text-white/90">{details}</p>
       </div>
     </div>
   );
@@ -149,29 +151,29 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="bg-gray-50 dark:bg-gray-900 py-20 sm:py-24 px-4 sm:px-12 lg:px-24 transition-colors duration-500 min-h-screen flex flex-col items-center"
+      className="bg-gray-50 dark:bg-gray-900 py-16 sm:py-20 px-4 sm:px-8 lg:px-24 transition-colors duration-500 min-h-screen flex flex-col items-center"
     >
       {/* Heading Section */}
-      <header className="max-w-4xl text-center mb-12 sm:mb-16">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+      <header className="max-w-4xl text-center mb-10 sm:mb-16">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
           My Skills & Expertise
         </h2>
-        <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+        <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
           A showcase of technologies and activities I excel at.
         </p>
       </header>
 
       {/* Main Content */}
-      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-24">
+      <div className="max-w-7xl w-full flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-24">
         {/* Left floating animated icons */}
-        <div className="flex flex-wrap md:flex-col justify-center md:justify-start w-full md:w-auto gap-6 md:gap-12">
+        <div className="flex flex-wrap lg:flex-col justify-center lg:justify-start w-full lg:w-auto gap-5 sm:gap-6 md:gap-8">
           {["C", "Python", "SQL"].map((iconName, idx) => {
             const IconComponent = IconLibrary[iconName];
             return (
               <div
                 key={iconName}
                 className={`
-                  w-20 h-20 flex items-center justify-center shadow-lg
+                  w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center shadow-lg
                   cursor-pointer
                   bg-gradient-to-tr from-blue-600 to-blue-400 dark:from-blue-500 dark:to-blue-300
                   animate-bounce hover:animate-none
@@ -182,14 +184,14 @@ const Skills = () => {
                 tabIndex={0}
                 aria-label={`${iconName} icon`}
               >
-                <IconComponent className="w-12 h-12 text-white drop-shadow-md" />
+                <IconComponent className="w-10 h-10 sm:w-12 sm:h-12 text-white drop-shadow-md" />
               </div>
             );
           })}
         </div>
 
         {/* Right side cards */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {skillsData.map((skill) => (
             <SkillCard key={skill.category} {...skill} />
           ))}
