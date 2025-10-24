@@ -59,14 +59,16 @@ const PublicationCard = ({ title, category, icon, color }) => {
   const IconComponent = IconLibrary[icon];
   return (
     <div
-      className={`${color} rounded-2xl p-5 shadow-lg flex items-start space-x-4 min-w-[250px] sm:min-w-[300px] lg:min-w-[350px] mr-6 hover:scale-105 transition cursor-pointer`}
+      className={`${color} rounded-2xl p-4 sm:p-5 shadow-md sm:shadow-lg flex items-start space-x-3 sm:space-x-4 min-w-[220px] xs:min-w-[260px] sm:min-w-[300px] lg:min-w-[350px] mr-4 sm:mr-6 hover:scale-105 transition-transform cursor-pointer`}
     >
-      <div className="bg-white/20 p-3 rounded-full">
-        {IconComponent && <IconComponent className="w-6 h-6 text-white" />}
+      <div className="bg-white/20 p-2 sm:p-3 rounded-full flex items-center justify-center">
+        {IconComponent && <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
       </div>
       <div>
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <p className="text-sm text-white/80">{category}</p>
+        <h3 className="text-base sm:text-lg font-semibold text-white leading-snug">
+          {title}
+        </h3>
+        <p className="text-xs sm:text-sm text-white/80">{category}</p>
       </div>
     </div>
   );
@@ -75,13 +77,13 @@ const PublicationCard = ({ title, category, icon, color }) => {
 // ===== Skill Card =====
 const SkillCard = ({ category, details, icons, color }) => {
   const renderIcons = () => (
-    <div className="flex -space-x-3">
+    <div className="flex -space-x-2 sm:-space-x-3">
       {icons.map((iconName) => {
         const IconComponent = IconLibrary[iconName];
         return IconComponent ? (
           <IconComponent
             key={iconName}
-            className="w-8 h-8 rounded-full bg-white p-1 shadow-md text-gray-900"
+            className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white p-1 shadow-md text-gray-900"
           />
         ) : null;
       })}
@@ -90,12 +92,14 @@ const SkillCard = ({ category, details, icons, color }) => {
 
   return (
     <div
-      className={`${color} p-5 rounded-2xl shadow-lg flex items-center space-x-4 min-w-[250px] sm:min-w-[300px] lg:min-w-[350px] mr-6 hover:scale-105 transition cursor-pointer`}
+      className={`${color} p-4 sm:p-5 rounded-2xl shadow-md sm:shadow-lg flex items-center space-x-3 sm:space-x-4 min-w-[220px] xs:min-w-[260px] sm:min-w-[300px] lg:min-w-[350px] mr-4 sm:mr-6 hover:scale-105 transition-transform cursor-pointer`}
     >
-      <div className="bg-white/20 p-3 rounded-full">{renderIcons()}</div>
+      <div className="bg-white/20 p-2 sm:p-3 rounded-full">{renderIcons()}</div>
       <div>
-        <h3 className="text-lg font-semibold text-white">{category}</h3>
-        <p className="text-sm text-white/80">{details}</p>
+        <h3 className="text-base sm:text-lg font-semibold text-white">
+          {category}
+        </h3>
+        <p className="text-xs sm:text-sm text-white/80">{details}</p>
       </div>
     </div>
   );
@@ -104,7 +108,7 @@ const SkillCard = ({ category, details, icons, color }) => {
 // ===== Marquee Wrapper =====
 const Marquee = ({ children, duration = 40 }) => {
   return (
-    <div className="overflow-hidden w-full">
+    <div className="overflow-hidden w-full py-1 sm:py-2">
       <motion.div
         className="flex"
         animate={{ x: ["0%", "-50%"] }}
@@ -126,19 +130,19 @@ const Marquee = ({ children, duration = 40 }) => {
 const PortfolioShowcase = () => {
   return (
     <section
-      id="skills & work"
-      className="py-10 px-4 text-gray-800 dark:text-gray-200"
+      id="skills-work"
+      className="py-10 sm:py-14 px-3 sm:px-6 md:px-10 lg:px-16 text-gray-800 dark:text-gray-200"
     >
-      <h2 className="text-3xl font-bold text-center mb-6">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8">
         My Work & Skills
       </h2>
 
       {/* Publications */}
-      <h3 className="text-2xl font-semibold mb-4 text-center">
+      <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-center">
         Research Papers & Publications
       </h3>
 
-      {/* Mobile: stacked */}
+      {/* Mobile: stacked cards */}
       <div className="flex flex-col gap-4 sm:hidden">
         {publicationsData.map((pub, index) => (
           <PublicationCard key={index} {...pub} />
@@ -155,11 +159,11 @@ const PortfolioShowcase = () => {
       </div>
 
       {/* Skills */}
-      <h3 className="text-2xl font-semibold mt-10 mb-4 text-center">
+      <h3 className="text-xl sm:text-2xl font-semibold mt-10 sm:mt-12 mb-4 text-center">
         Skills & Expertise
       </h3>
 
-      {/* Mobile: stacked */}
+      {/* Mobile: stacked cards */}
       <div className="flex flex-col gap-4 sm:hidden">
         {skillsData.map((skill, index) => (
           <SkillCard key={index} {...skill} />
